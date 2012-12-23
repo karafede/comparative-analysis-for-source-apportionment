@@ -69,15 +69,16 @@ TRENDs <- list.files(path ="D:/Input_data",
 
 ###### MATRICES CONC, UNC, CONTRIBUTIONS (%) and TRENDS ######
 
+nrows <- 39   ##### number of lines in the input data (chemical species)
 for (i in c(1:length(CONCs))) {
   assign(gsub("[.]csv$","",CONCs[i]), as.matrix(read.csv(CONCs[i], header=TRUE, 
-  as.is = 1)[-39,-1]))
+  as.is = 1)[-nrows,-1]))
 }
 
 
 for (i in c(1:length(UNCs))) {
   assign(gsub("[.]csv$","",UNCs[i]), as.matrix(read.csv(UNCs[i], header=TRUE, 
-                                                        as.is = 1)[-39,-1]))
+                                                        as.is = 1)[-nrows,-1]))
 }
 
 
@@ -86,13 +87,13 @@ for (i in c(1:length(UNCs))) {
 ##### TOTAL MASS MATRICES #########
 for (i in c(1:length(MASS))) {
   assign(gsub("","", MASS[i]), as.matrix(read.csv(MASS[i], header=TRUE,
-  as.is = 1)[39,-1]))
-  NROW = nrow(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1]))
-  NCOL = ncol(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1]))
+  as.is = 1)[nrows,-1]))
+  NROW = nrow(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1]))
+  NCOL = ncol(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1]))
 # matrix(assign(gsub("","", MASS[i]), as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[48,-1])), nrow = 47, ncol = NCOL, byrow = TRUE)
   assign(gsub("","", MASS[i]), matrix(assign(gsub("","", MASS[i]), 
-  as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1])), 
-  nrow = 38, ncol = NCOL, byrow = TRUE))
+  as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1])), 
+  nrow = nrows-1, ncol = NCOL, byrow = TRUE))
   }
 
 
@@ -100,28 +101,28 @@ for (i in c(1:length(MASS))) {
 
 for (i in c(1:length(MASS))) {
   
-NCOL = ncol(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1]))
+NCOL = ncol(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1]))
     
 M <-  assign(gsub("","", MASS[i]), matrix(assign(gsub("","", MASS[i]), 
-      as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1])), 
-      nrow = 38, ncol = NCOL, byrow = TRUE))
+      as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1])), 
+      nrow = nrows-1, ncol = NCOL, byrow = TRUE))
 
 ROWMASS <-  assign(gsub("","", MASS[i]), matrix(assign(gsub("","", MASS[i]), 
-          as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1])), 
+          as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1])), 
         nrow = 1, ncol = NCOL, byrow = TRUE))
 
 
 ROWnames <-  assign(gsub("","", MASS[i]), matrix(assign(gsub("","", MASS[i]), 
           as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[,1])), 
-          nrow = 39, ncol = 1, byrow = TRUE))
+          nrow = nrows, ncol = 1, byrow = TRUE))
 
-COL = ncol(as.matrix(read.csv(CONCs[i], header=TRUE,as.is = 1)[-39,-1]))
+COL = ncol(as.matrix(read.csv(CONCs[i], header=TRUE,as.is = 1)[-nrows,-1]))
 
-c <- colnames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-39,-1]))
-r <-  rownames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-39,-1]))
+c <- colnames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-nrows,-1]))
+r <-  rownames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-nrows,-1]))
 
 C <-  assign(gsub("[.]csv$","",CONCs[i]), matrix(as.matrix(read.csv(CONCs[i], 
-      header=TRUE, as.is = 1)[-39,-1]), nrow = 38, ncol = COL,
+      header=TRUE, as.is = 1)[-nrows,-1]), nrow = nrows-1, ncol = COL,
       byrow=FALSE, dimnames = list(r,c)))
 
 Rel_conc <-C/M
@@ -143,24 +144,24 @@ write.csv(Rel_Log, file = outputname_log)
 
 for (i in c(1:length(MASS))) {
   
-u_NCOL = ncol(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1]))
+u_NCOL = ncol(as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1]))
   
 u_M <-  assign(gsub("","", MASS[i]), matrix(assign(gsub("","", MASS[i]), 
-      as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[39,-1])), 
-     nrow = 38, ncol = u_NCOL, byrow = TRUE))
+      as.matrix(read.csv(MASS[i], header=TRUE,as.is = 1)[nrows,-1])), 
+     nrow = nrows-1, ncol = u_NCOL, byrow = TRUE))
 
 
 U_ROWMASS <-  assign(gsub("","", U_MASS[i]), matrix(assign(gsub("","", U_MASS[i]), 
-                    as.matrix(read.csv(U_MASS[i], header=TRUE,as.is = 1)[39,-1])), 
+                    as.matrix(read.csv(U_MASS[i], header=TRUE,as.is = 1)[nrows,-1])), 
                     nrow = 1, ncol = u_NCOL, byrow = TRUE))
   
-u_COL = ncol(as.matrix(read.csv(UNCs[i], header=TRUE,as.is = 1)[-39,-1]))
+u_COL = ncol(as.matrix(read.csv(UNCs[i], header=TRUE,as.is = 1)[-nrows,-1]))
 
-u_c <- colnames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-39,-1]))
-u_r <-  rownames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-39,-1]))
+u_c <- colnames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-nrows,-1]))
+u_r <-  rownames(as.matrix(read.csv(CONCs[i], header=TRUE, as.is = 1)[-nrows,-1]))
   
 u_C <-  assign(gsub("[.]csv$","",UNCs[i]), matrix(as.matrix(read.csv(UNCs[i], header=TRUE, 
-        as.is = 1)[-39,-1]), nrow = 38, ncol = u_COL,byrow=FALSE, 
+        as.is = 1)[-nrows,-1]), nrow = nrows-1, ncol = u_COL,byrow=FALSE, 
         dimnames = list(u_r,u_c) ))
   
 Rel_unc <- u_C/u_M
@@ -255,7 +256,7 @@ for (i in c(1:length(CONTRs))) {
 
   ROWnames_CONTRS <-  assign(gsub("","", CONTRs[i]), matrix(assign(gsub("","", CONTRs[i]), 
   as.matrix(read.csv(CONTRs[i], header=TRUE,as.is = 1)[,1])), 
-  nrow = 39, ncol = 1, byrow = TRUE))
+  nrow = nrows, ncol = 1, byrow = TRUE))
   
 }
 
@@ -277,7 +278,7 @@ for (i in c(1:length(CONTRS))) {
   
   T <-  assign(gsub("[.]csv$","",CONTRS[i]), 
           matrix(as.matrix(read.csv(CONTRS[i], header=TRUE, 
-          as.is = 1)[,-1]), nrow = 39, ncol = COL_CONTRS, 
+          as.is = 1)[,-1]), nrow = nrows, ncol = COL_CONTRS, 
           byrow=FALSE, dimnames = list(ROW_NAMES_CONTRS,COL_NAMES_CONTRS)))
   
   CONTRS_Bind <- cbind(CONTRS_Bind,T)
@@ -332,7 +333,7 @@ ROW_NAMES <-  rownames(as.matrix(read.csv(REL_CONCENTRATIONS[i], header=TRUE, as
  
  R <-  assign(gsub("[.]csv$","",REL_CONCENTRATIONS[i]), 
               matrix(as.matrix(read.csv(REL_CONCENTRATIONS[i], header=TRUE, 
-              as.is = 1)[,-1]), nrow = 39, ncol = COL, 
+              as.is = 1)[,-1]), nrow = nrows, ncol = COL, 
               byrow=FALSE, dimnames = list(ROW_NAMES,COL_NAMES)))
 
 REL_Bind_CONCs <- cbind(REL_Bind_CONCs,R)
@@ -360,12 +361,12 @@ for (i in c(1:length(REL_LOG))) {
   
   R_LOG <-  assign(gsub("[.]csv$","",REL_LOG[i]), 
               matrix(as.matrix(read.csv(REL_LOG[i], header=TRUE, 
-              as.is = 1)[,-1]), nrow = 38, ncol = COL_LOG, 
+              as.is = 1)[,-1]), nrow = nrows-1, ncol = COL_LOG, 
               byrow=FALSE, dimnames = list(ROW_NAMES_LOG,COL_NAMES_LOG)))
   
   REL_Bind_LOG <- cbind(REL_Bind_LOG,R_LOG)
 }
-SPECIES_LOG <- ROWnames[-39,]
+SPECIES_LOG <- ROWnames[-nrows,]
 REL_Bind_LOG <- cbind(SPECIES_LOG,REL_Bind_LOG) ###add row names
 
 ##########################################################################
@@ -376,8 +377,8 @@ REL_Bind_LOG <- cbind(SPECIES_LOG,REL_Bind_LOG) ###add row names
 BioB <- subset(REL_Bind_CONCs,
                select=grep("BioB", colnames(REL_Bind_CONCs))) 
 BioB_REF_rel <- read.csv("BioB_REF_rel.csv", header = TRUE) ##reference
-BioB_rel <- cbind(SPECIES[1:38],BioB[1:38,],BioB_REF_rel[2]) ###add row names and references
-BioB_SCEs <- as.matrix(BioB[39,]) ###SCEs grouped by CLASS FACTORS
+BioB_rel <- cbind(SPECIES[1:nrows-1],BioB[1:nrows-1,],BioB_REF_rel[2]) ###add row names and references
+BioB_SCEs <- as.matrix(BioB[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 BioB_LOG <- subset(REL_Bind_LOG,
                select=grep("BioB", colnames(REL_Bind_LOG)))
@@ -389,8 +390,8 @@ BioB_rel_LOG <- cbind(SPECIES_LOG,BioB_LOG,BioB_REF_LOG) ###add row names and re
 SO4 <- subset(REL_Bind_CONCs, 
               select=grep("SO4", colnames(REL_Bind_CONCs)))
 SO4_REF_rel <- read.csv("SO4_REF_rel.csv", header = TRUE) ##reference
-SO4_rel <- cbind(SPECIES[1:38],SO4[1:38,],SO4_REF_rel[2]) ###add row names and references
-SO4_SCEs <- as.matrix(SO4[39,]) ###SCEs grouped by CLASS FACTORS
+SO4_rel <- cbind(SPECIES[1:nrows-1],SO4[1:nrows-1,],SO4_REF_rel[2]) ###add row names and references
+SO4_SCEs <- as.matrix(SO4[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 SO4_LOG <- subset(REL_Bind_LOG,
                   select=grep("SO4", colnames(REL_Bind_LOG)))
@@ -402,8 +403,8 @@ SO4_rel_LOG <- cbind(SPECIES_LOG,SO4_LOG,SO4_REF_LOG) ###add row names and refer
 NO3 <- subset(REL_Bind_CONCs, 
               select=grep("NO3", colnames(REL_Bind_CONCs)))
 NO3_REF_rel <- read.csv("NO3_REF_rel.csv", header = TRUE) ##reference
-NO3_rel <- cbind(SPECIES[1:38],NO3[1:38,],NO3_REF_rel[2]) ###add row names and references
-NO3_SCEs <- as.matrix(NO3[39,]) ###SCEs grouped by CLASS FACTORS
+NO3_rel <- cbind(SPECIES[1:nrows-1],NO3[1:nrows-1,],NO3_REF_rel[2]) ###add row names and references
+NO3_SCEs <- as.matrix(NO3[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 NO3_LOG <- subset(REL_Bind_LOG,
                   select=grep("NO3", colnames(REL_Bind_LOG)))
@@ -415,8 +416,8 @@ NO3_rel_LOG <- cbind(SPECIES_LOG,NO3_LOG,NO3_REF_LOG) ###add row names and refer
 DUST <- subset(REL_Bind_CONCs, 
                select=grep("DUST", colnames(REL_Bind_CONCs)))
 DUST_REF_rel <- read.csv("DUST_REF_rel.csv", header = TRUE) ##reference
-DUST_rel <- cbind(SPECIES[1:38],DUST[1:38,],DUST_REF_rel[2]) ###add row names and references
-DUST_SCEs <- as.matrix(DUST[39,]) ###SCEs grouped by CLASS FACTORS
+DUST_rel <- cbind(SPECIES[1:nrows-1],DUST[1:nrows-1,],DUST_REF_rel[2]) ###add row names and references
+DUST_SCEs <- as.matrix(DUST[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 DUST_LOG <- subset(REL_Bind_LOG,
                    select=grep("DUST", colnames(REL_Bind_LOG)))
@@ -428,8 +429,8 @@ DUST_rel_LOG <- cbind(SPECIES_LOG,DUST_LOG,DUST_REF_LOG) ###add row names and re
 ROAD <- subset(REL_Bind_CONCs, 
                select=grep("ROAD", colnames(REL_Bind_CONCs)))
 ROAD_REF_rel <- read.csv("ROAD_REF_rel.csv", header = TRUE) ##reference
-ROAD_rel <- cbind(SPECIES[1:38],ROAD[1:38,],ROAD_REF_rel[2]) ###add row names and references
-ROAD_SCEs <- as.matrix(ROAD[39,]) ###SCEs grouped by CLASS FACTORS
+ROAD_rel <- cbind(SPECIES[1:nrows-1],ROAD[1:nrows-1,],ROAD_REF_rel[2]) ###add row names and references
+ROAD_SCEs <- as.matrix(ROAD[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 ROAD_LOG <- subset(REL_Bind_LOG,
                    select=grep("ROAD", colnames(REL_Bind_LOG)))
@@ -441,8 +442,8 @@ ROAD_rel_LOG <- cbind(SPECIES_LOG,ROAD_LOG,ROAD_REF_LOG) ###add row names and re
 SALT <- subset(REL_Bind_CONCs, 
                select=grep("SALT", colnames(REL_Bind_CONCs)))
 SALT_REF_rel <- read.csv("SALT_REF_rel.csv", header = TRUE) ##reference
-SALT_rel <- cbind(SPECIES[1:38],SALT[1:38,],SALT_REF_rel[2]) ###add row names and references
-SALT_SCEs <- as.matrix(SALT[39,]) ###SCEs grouped by CLASS FACTORS
+SALT_rel <- cbind(SPECIES[1:nrows-1],SALT[1:nrows-1,],SALT_REF_rel[2]) ###add row names and references
+SALT_SCEs <- as.matrix(SALT[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 SALT_LOG <- subset(REL_Bind_LOG,
                    select=grep("SALT", colnames(REL_Bind_LOG)))
@@ -454,8 +455,8 @@ SALT_rel_LOG <- cbind(SPECIES_LOG,SALT_LOG,SALT_REF_LOG) ###add row names and re
 TRA <- subset(REL_Bind_CONCs, 
               select=grep("TRA", colnames(REL_Bind_CONCs)))
 TRA_REF_rel <- read.csv("TRA_REF_rel.csv", header = TRUE) ##reference
-TRA_rel <- cbind(SPECIES[1:38],TRA[1:38,],TRA_REF_rel[2]) ###add row names and references
-TRA_SCEs <- as.matrix(TRA[39,]) ###SCEs grouped by CLASS FACTORS
+TRA_rel <- cbind(SPECIES[1:nrows-1],TRA[1:nrows-1,],TRA_REF_rel[2]) ###add row names and references
+TRA_SCEs <- as.matrix(TRA[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 TRA_LOG <- subset(REL_Bind_LOG,
                    select=grep("TRA", colnames(REL_Bind_LOG)))
@@ -467,8 +468,8 @@ TRA_rel_LOG <- cbind(SPECIES_LOG,TRA_LOG,TRA_REF_LOG) ###add row names and refer
 INDU <- subset(REL_Bind_CONCs, 
                select=grep("INDU", colnames(REL_Bind_CONCs)))
 INDU_REF_rel <- read.csv("INDU_REF_rel.csv", header = TRUE) ##reference
-INDU_rel <- cbind(SPECIES[1:38],INDU[1:38,],INDU_REF_rel[2]) ###add row names and references
-INDU_SCEs <- as.matrix(INDU[39,]) ###SCEs grouped by CLASS FACTORS
+INDU_rel <- cbind(SPECIES[1:nrows-1],INDU[1:nrows-1,],INDU_REF_rel[2]) ###add row names and references
+INDU_SCEs <- as.matrix(INDU[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 INDU_LOG <- subset(REL_Bind_LOG,
                    select=grep("INDU", colnames(REL_Bind_LOG)))
@@ -480,8 +481,8 @@ INDU_rel_LOG <- cbind(SPECIES_LOG,INDU_LOG,INDU_REF_LOG) ###add row names and re
 SEC <- subset(REL_Bind_CONCs, 
               select=grep("SEC", colnames(REL_Bind_CONCs)))
 #SEC_REF_rel <- read.csv("SEC_REF_rel.csv", header = TRUE) ##reference
-SEC_rel <- cbind(SPECIES[1:38],SEC[1:38,]) ###add row names and references
-SEC_SCEs <- as.matrix(SEC[39,]) ###SCEs grouped by CLASS FACTORS
+SEC_rel <- cbind(SPECIES[1:nrows-1],SEC[1:nrows-1,]) ###add row names and references
+SEC_SCEs <- as.matrix(SEC[nrows,]) ###SCEs grouped by CLASS FACTORS
 
 SEC_LOG <- subset(REL_Bind_LOG,
                    select=grep("SEC", colnames(REL_Bind_LOG)))
@@ -508,7 +509,7 @@ u_ROW_NAMES <-  rownames(as.matrix(read.csv(REL_UNCERTAINTIES[i], header=TRUE, a
   
   Z <-  assign(gsub("[.]csv$","",REL_UNCERTAINTIES[i]), 
                matrix(as.matrix(read.csv(REL_UNCERTAINTIES[i], header=TRUE, 
-                                         as.is = 1)[,-1]), nrow = 39, ncol = COL, 
+                                         as.is = 1)[,-1]), nrow = nrows, ncol = COL, 
                       byrow=FALSE, dimnames = list(u_ROW_NAMES,u_COL_NAMES)))
   
   REL_Bind_UNCs <- cbind(REL_Bind_UNCs,Z)
@@ -521,73 +522,73 @@ REL_Bind_UNCs <- cbind(u_SPECIES,REL_Bind_UNCs) ###add row names
 
 BioB_U <- subset(REL_Bind_UNCs, 
                  select=grep("BioB", colnames(REL_Bind_UNCs)))
-BioB_U_SCEs <- as.matrix(BioB_U[39,])
+BioB_U_SCEs <- as.matrix(BioB_U[nrows,])
 BioB_REF_unc <- read.csv("BioB_REF_unc.csv", header = TRUE) ##reference
-BioB_U <- cbind(u_SPECIES[1:38],BioB_U[1:38,],BioB_REF_unc[2]) ###add row names
+BioB_U <- cbind(u_SPECIES[1:nrows-1],BioB_U[1:nrows-1,],BioB_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 SO4_U <- subset(REL_Bind_UNCs, 
                 select=grep("SO4", colnames(REL_Bind_UNCs)))
-SO4_U_SCEs <- as.matrix(SO4_U[39,])
+SO4_U_SCEs <- as.matrix(SO4_U[nrows,])
 SO4_REF_unc <- read.csv("SO4_REF_unc.csv", header = TRUE) ##reference
-SO4_U <- cbind(u_SPECIES[1:38],SO4_U[1:38,],SO4_REF_unc[2]) ###add row names
+SO4_U <- cbind(u_SPECIES[1:nrows-1],SO4_U[1:nrows-1,],SO4_REF_unc[2]) ###add row names
 
 
 ########### ########## ########## ########### ########### ########### #####
 
 NO3_U <- subset(REL_Bind_UNCs, select=grep("NO3", colnames(REL_Bind_UNCs)))
-NO3_U_SCEs <- as.matrix(NO3_U[39,])
+NO3_U_SCEs <- as.matrix(NO3_U[nrows,])
 NO3_REF_unc <- read.csv("NO3_REF_unc.csv", header = TRUE) ##reference
-NO3_U <- cbind(u_SPECIES[1:38],NO3_U[1:38,],NO3_REF_unc[2]) ###add row names
+NO3_U <- cbind(u_SPECIES[1:nrows-1],NO3_U[1:nrows-1,],NO3_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 DUST_U <- subset(REL_Bind_UNCs, 
                  select=grep("DUST", colnames(REL_Bind_UNCs)))
-DUST_U_SCEs <- as.matrix(DUST_U[39,])
+DUST_U_SCEs <- as.matrix(DUST_U[nrows,])
 DUST_REF_unc <- read.csv("DUST_REF_unc.csv", header = TRUE) ##reference
-DUST_U <- cbind(u_SPECIES[1:38],DUST_U[1:38,],DUST_REF_unc[2]) ###add row names
+DUST_U <- cbind(u_SPECIES[1:nrows-1],DUST_U[1:nrows-1,],DUST_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 ROAD_U <- subset(REL_Bind_UNCs, 
                  select=grep("ROAD", colnames(REL_Bind_UNCs)))
-ROAD_U_SCEs <- as.matrix(ROAD_U[39,])
+ROAD_U_SCEs <- as.matrix(ROAD_U[nrows,])
 ROAD_REF_unc <- read.csv("ROAD_REF_unc.csv", header = TRUE) ##reference
-ROAD_U <- cbind(u_SPECIES[1:38],ROAD_U[1:38,],ROAD_REF_unc[2]) ###add row names
+ROAD_U <- cbind(u_SPECIES[1:nrows-1],ROAD_U[1:nrows-1,],ROAD_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 SALT_U <- subset(REL_Bind_UNCs, 
                  select=grep("SALT", colnames(REL_Bind_UNCs)))
-SALT_U_SCEs <- as.matrix(SALT_U[39,])
+SALT_U_SCEs <- as.matrix(SALT_U[nrows,])
 SALT_REF_unc <- read.csv("SALT_REF_unc.csv", header = TRUE) ##reference
-SALT_U <- cbind(u_SPECIES[1:38],SALT_U[1:38,],SALT_REF_unc[2]) ###add row names
+SALT_U <- cbind(u_SPECIES[1:nrows-1],SALT_U[1:nrows-1,],SALT_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 TRA_U <- subset(REL_Bind_UNCs, 
                 select=grep("TRA", colnames(REL_Bind_UNCs)))
-TRA_U_SCEs <- as.matrix(TRA_U[39,])
+TRA_U_SCEs <- as.matrix(TRA_U[nrows,])
 TRA_REF_unc <- read.csv("TRA_REF_unc.csv", header = TRUE) ##reference
-TRA_U <- cbind(u_SPECIES[1:38],TRA_U[1:38,],TRA_REF_unc[2]) ###add row names
+TRA_U <- cbind(u_SPECIES[1:nrows-1],TRA_U[1:nrows-1,],TRA_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 INDU_U <- subset(REL_Bind_UNCs, 
                  select=grep("INDU", colnames(REL_Bind_UNCs)))
-INDU_U_SCEs <- as.matrix(INDU_U[39,])
+INDU_U_SCEs <- as.matrix(INDU_U[nrows,])
 INDU_REF_unc <- read.csv("INDU_REF_unc.csv", header = TRUE) ##reference
-INDU_U <- cbind(u_SPECIES[1:38],INDU_U[1:38,],INDU_REF_unc[2]) ###add row names
+INDU_U <- cbind(u_SPECIES[1:nrows-1],INDU_U[1:nrows-1,],INDU_REF_unc[2]) ###add row names
 
 ########### ########## ########## ########### ########### ########### #####
 
 SEC_U <- subset(REL_Bind_UNCs, 
                 select=grep("SEC", colnames(REL_Bind_UNCs)))
-SEC_U_SCEs <- as.matrix(SEC_U[39,])
+SEC_U_SCEs <- as.matrix(SEC_U[nrows,])
 #SEC_REF_unc <- read.csv("SEC_REF_unc.csv", header = TRUE) ##reference
-SEC_U <- cbind(u_SPECIES[1:38],SEC_U[1:38,]) ###add row names
+SEC_U <- cbind(u_SPECIES[1:nrows-1],SEC_U[1:nrows-1,]) ###add row names
 
 
 ####### save CATEGORIES (Classes) ###################################
