@@ -1,4 +1,4 @@
-comparative-analysis
+comparative-analysis for source apportionment
 ====================
 
 Comparative analysis of environmental data from source apportionment
