@@ -34,5 +34,18 @@ The R code: CORR.R acts as follow:
 - makes boxplots for correlation between factor profiles
 - makes matplots for correlation between factor and reference source profiles.
 
+##################################################################################################################
+
+Comparative analysis takes also into account uncertainties of data. For this purpose, the
+Weighted Difference (WD) is a way to compare data between laboratories considering uncertainties.
+
+The R code: WEIGH_DIFF.R acts as follow:
+- loads data
+- makes all possible WD between factor profiles
+- makes WD between factor and reference source profiles.
+- makes boxplots for WD between factor profiles
+- makes matplots for WD between factor and reference source profiles.
+
+
 
 
