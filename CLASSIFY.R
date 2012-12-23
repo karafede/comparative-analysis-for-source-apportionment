@@ -12,16 +12,16 @@ In the following the R code written for this purpose:
 setwd("D:/Input_data")
 #########################################################
 labs <- c("Lab1_PMF3.0", "Lab2_PMF2","Lab3_PMF3.0", "Lab4_PMF3.0",
-          "Lab5_PMF3.0", "Lab6_PMF2", "Lab7_CMB", "Lab7_CMB", "Lab8_PMF3.0",
-          "Lab9_ME2", "Lab19_PMF3.0", "Lab11_CMB", "Lab12_PMF3.0",
-          "Lab13_PMF3.0", "Lab14_CMB", "Lab15_PMF3.0", "Lab16_PMF3.0",
-          "Lab17_COPREM", "Lab18_PMF2", "Lab19_PMF3.0", 
-          "Lab20_APCA","Lab21_PMF3.0", "Lab5_CMB","Lab22_PMF3.0",
-          "Lab22_FA-MLRA","Lab22_FA-MLRA","Lab23_PMF3.0", "Reference Profiles")
+          "Lab5_PMF3.0", "Lab6_PMF2", "Lab7_CMB", "Lab8_CMB", "Lab9_PMF3.0",
+          "Lab10_ME2", "Lab11_PMF3.0", "Lab12_CMB", "Lab13_PMF3.0",
+          "Lab14_PMF3.0", "Lab15_CMB", "Lab16_PMF3.0", "Lab17_PMF3.0",
+          "Lab18_COPREM", "Lab19_PMF2", "Lab20_PMF3.0", 
+          "Lab21_APCA","Lab22_PMF3.0", "Lab23_CMB","Lab24_PMF3.0",
+          "Lab25_FA-MLRA","Lab26_FA-MLRA","Lab27_PMF3.0", "Reference Profiles")
 
-codes <- c("Q1","M1", "F1", "C1", "J1", "L1", "S1", "S2", "A1", "B1",
-          "R1", "T1", "P1", "O1", "N1", "X1", "Y1", "K1", "H1",
-          "D1", "H2", "H3", "J2","G1","G2", "G3","Z1", "REF")
+codes <- c("Lab1","Lab2", "Lab3", "Lab4", "Lab5", "Lab6", "Lab7", "Lab8", "Lab9", "Lab10",
+          "Lab11", "Lab12", "Lab13", "Lab14", "Lab15", "Lab16", "Lab17", "Lab18", "Lab19",
+          "Lab20", "Lab21", "Lab22", "Lab23","Lab24","Lab25", "Lab26","Lab27", "REF")
 
 Lab_Codes <- data.frame(labs,codes)
 
