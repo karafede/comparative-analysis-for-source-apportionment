@@ -1,12 +1,13 @@
-
 Proficiency tests are performed according to the ISO 13528:
 R codes have been written for:
 
-Z’- score
-Z - score
-En- number
+- Z’_score
+- Z _score
+- En_number
 
-#############################################################################################################
+
+
+##########  Z'_score   #############################################################################################
 
 setwd(D:/Input_data/Rel_Categories/Input_data/Rel_Categories")
 
