@@ -26,6 +26,7 @@ The R code: CLASSIFY.R acts as follow:
 Comparative analysis begins with performing Pearson correlation classified data.
 Correlation is then carried on all possible pairs of factor profiles found by each laboratory.
 Also correlation with a reference source profile is performed.
+
 The R code: CORR.R acts as follow:
 - loads data
 - makes all possible correlations between factor profiles
