@@ -46,6 +46,16 @@ The R code: WEIGH_DIFF.R acts as follow:
 - makes boxplots for WD between factor profiles
 - makes matplots for WD between factor and reference source profiles.
 
+#################################################################################################################
+
+Threshold limit of acceptability for the Pearson correlation are set at 2.0.
+
+Proficiency tests are performed according to the ISO 13528:
+R codes have been written for:
+
+Z’- score
+Z - score
+En- number
 
 
 
