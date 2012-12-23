@@ -254,3 +254,7 @@ leg.txt <- c("BioB_REF")
 legend (22, -0.1, leg.txt,col = c(1,2,3,6),pch =c(19,1,2,3,6), bg="white",
         cex = 0.7, text.font = 1 )
 
+#########################################################################################
+
+
+repeat the same code for the other categories.....
