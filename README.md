@@ -53,9 +53,9 @@ Threshold limit of acceptability for the Pearson correlation are set at 2.0.
 Proficiency tests are performed according to the ISO 13528:
 R codes have been written for:
 
-Z’- score
-Z - score
-En- number
+- Z'_score
+- Z_score
+- En_number
 
 
 
