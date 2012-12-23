@@ -1,0 +1,418 @@
+Proficiency tests are performed according to the ISO 13528:
+R codes have been written for:
+
+- Z’_score
+- Z _score
+- En_number
+
+##### En_number ##############################################################################################
+
+setwd("D:/Input_data/Rel_Categories/Input_data/Rel_Categories")
+
+SCEs <- list.files(path ="D:/Input_data/Rel_Categories/Input_data/Rel_Categories",
+                   pattern = "SCEs") #this includes only files with "rel"
+
+
+for (i in c(1:length(SCEs))) {
+  assign(gsub("[.]csv$","",SCEs[i]), read.csv(SCEs[i], header=TRUE, 
+                                              as.is = 1))
+}
+
+##########################################################################
+############################# BioB En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+BioB_SYNT <- SCEs_SYNT[1,3]
+U_BioB_SYNT <- SCEs_SYNT[1,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+BioB_SCEs$U_BioB_SCE <- BioB_U_SCEs[,2] ##### SCE uncertainty
+BioB_SCEs$En_number <- BioB_SCEs[,2]
+BioB_SCEs[,4] <- (BioB_SCEs[,2] - BioB_SYNT)/sqrt((2*BioB_U_SCEs[,2])^2 + (2*U_BioB_SYNT)^2)
+str(BioB_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- BioB_SCEs[1]
+En_number <- BioB_SCEs[4]
+BioB_En_number <- cbind(names,En_number)
+write.csv(BioB_En_number, file = "BioB_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/BioB_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (BioB_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(BioB_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(1, (nrow(BioB_En_number)+5)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Biomass Burning En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+
+##########################################################################
+############################# SO4 En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+SO4_SYNT <- SCEs_SYNT[2,3]
+U_SO4_SYNT <- SCEs_SYNT[2,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+SO4_SCEs$U_SO4_SCE <- SO4_U_SCEs[,2] ##### SCE uncertainty
+SO4_SCEs$En_number <- SO4_SCEs[,2]
+SO4_SCEs[,4] <- (SO4_SCEs[,2] - SO4_SYNT)/sqrt((2*SO4_U_SCEs[,2])^2 + (2*U_SO4_SYNT)^2)
+str(SO4_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- SO4_SCEs[1]
+En_number <- SO4_SCEs[4]
+SO4_En_number <- cbind(names,En_number)
+write.csv(SO4_En_number, file = "SO4_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/SO4_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (SO4_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(SO4_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(1, (nrow(SO4_En_number)+5)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Sulphate En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+##########################################################################
+############################# NO3 En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+NO3_SYNT <- SCEs_SYNT[3,3]
+U_NO3_SYNT <- SCEs_SYNT[3,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+NO3_SCEs$U_NO3_SCE <- NO3_U_SCEs[,2] ##### SCE uncertainty
+NO3_SCEs$En_number <- NO3_SCEs[,2]
+NO3_SCEs[,4] <- (NO3_SCEs[,2] - NO3_SYNT)/sqrt((2*NO3_U_SCEs[,2])^2 + (2*U_NO3_SYNT)^2)
+str(NO3_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- NO3_SCEs[1]
+En_number <- NO3_SCEs[4]
+NO3_En_number <- cbind(names,En_number)
+write.csv(NO3_En_number, file = "NO3_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/NO3_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (NO3_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(NO3_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(0.5, (nrow(NO3_En_number)+4)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Nitrate En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+
+##########################################################################
+############################# DUST En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+DUST_SYNT <- SCEs_SYNT[4,3]
+U_DUST_SYNT <- SCEs_SYNT[4,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+DUST_SCEs$U_DUST_SCE <- DUST_U_SCEs[,2] ##### SCE uncertainty
+DUST_SCEs$En_number <- DUST_SCEs[,2]
+DUST_SCEs[,4] <- (DUST_SCEs[,2] - DUST_SYNT)/sqrt((2*DUST_U_SCEs[,2])^2 + (2*U_DUST_SYNT)^2)
+str(DUST_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- DUST_SCEs[1]
+En_number <- DUST_SCEs[4]
+DUST_En_number <- cbind(names,En_number)
+write.csv(DUST_En_number, file = "DUST_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/DUST_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (DUST_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(DUST_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(1, (nrow(DUST_En_number)+4)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Dust En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+
+##########################################################################
+############################# ROAD En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+ROAD_SYNT <- SCEs_SYNT[5,3]
+U_ROAD_SYNT <- SCEs_SYNT[5,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+ROAD_SCEs$U_ROAD_SCE <- ROAD_U_SCEs[,2] ##### SCE uncertainty
+ROAD_SCEs$En_number <- ROAD_SCEs[,2]
+ROAD_SCEs[,4] <- (ROAD_SCEs[,2] - ROAD_SYNT)/sqrt((2*ROAD_U_SCEs[,2])^2 + (2*U_ROAD_SYNT)^2)
+str(ROAD_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- ROAD_SCEs[1]
+En_number <- ROAD_SCEs[4]
+ROAD_En_number <- cbind(names,En_number)
+write.csv(ROAD_En_number, file = "ROAD_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/ROAD_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (ROAD_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(ROAD_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(0.5, (nrow(ROAD_En_number)+3)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Road Dust En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+
+##########################################################################
+############################# SALT En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+SALT_SYNT <- SCEs_SYNT[6,3]
+U_SALT_SYNT <- SCEs_SYNT[6,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+SALT_SCEs$U_SALT_SCE <- SALT_U_SCEs[,2] ##### SCE uncertainty
+SALT_SCEs$En_number <- SALT_SCEs[,2]
+SALT_SCEs[,4] <- (SALT_SCEs[,2] - SALT_SYNT)/sqrt((2*SALT_U_SCEs[,2])^2 + (2*U_SALT_SYNT)^2)
+str(SALT_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- SALT_SCEs[1]
+En_number <- SALT_SCEs[4]
+SALT_En_number <- cbind(names,En_number)
+write.csv(SALT_En_number, file = "SALT_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/SALT_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (SALT_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(SALT_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(0.5, (nrow(SALT_En_number)+4)), ylim = c(-2, 3),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Salt En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+
+##########################################################################
+############################# TRA En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+TRA_SYNT <- SCEs_SYNT[7,3]
+U_TRA_SYNT <- SCEs_SYNT[7,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+TRA_SCEs$U_TRA_SCE <- TRA_U_SCEs[,2] ##### SCE uncertainty
+TRA_SCEs$En_number <- TRA_SCEs[,2]
+TRA_SCEs[,4] <- (TRA_SCEs[,2] - TRA_SYNT)/sqrt((2*TRA_U_SCEs[,2])^2 + (2*U_TRA_SYNT)^2)
+str(TRA_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- TRA_SCEs[1]
+En_number <- TRA_SCEs[4]
+TRA_En_number <- cbind(names,En_number)
+write.csv(TRA_En_number, file = "TRA_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/TRA_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (TRA_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(12, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(TRA_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(1, (nrow(TRA_En_number)+5)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Traffic En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
+
+##########################################################################
+############################# INDU En_number ##############################
+
+########### read the SCE values calculated from the dispersion model #####
+
+SCEs_SYNT <- read.csv("SCEs_SYNT.csv", header=TRUE ,",", as.is = 1)
+INDU_SYNT <- SCEs_SYNT[8,3]
+U_INDU_SYNT <- SCEs_SYNT[8,4]
+
+########## En-number score calculation for Source Contribution Estimation ###
+######## used expanded uncertainty ##########################################
+
+INDU_SCEs$U_INDU_SCE <- INDU_U_SCEs[,2] ##### SCE uncertainty
+INDU_SCEs$En_number <- INDU_SCEs[,2]
+INDU_SCEs[,4] <- (INDU_SCEs[,2] - INDU_SYNT)/sqrt((2*INDU_U_SCEs[,2])^2 + (2*U_INDU_SYNT)^2)
+str(INDU_SCEs)
+
+######## SAVE FILES BEFORE RUNNING SCRIPT WITH OTHER FACTOR CLASS #####
+
+names <- INDU_SCEs[1]
+En_number <- INDU_SCEs[4]
+INDU_En_number <- cbind(names,En_number)
+write.csv(INDU_En_number, file = "INDU_En_number.csv", na = "") 
+
+########## Box-Plot for En number ####################################
+
+jpeg('D:/Input_data/Rel_Categories/Input_data/Rel_Categories/En_graphs/INDU_En.jpg',
+     quality = 100, bg = "white", res = 200, width = 7, height = 7, units = "in")
+
+names <- (INDU_SCEs[,1])
+names <-as.vector(names)
+
+par(mar=c(13, 4, 2, 2) + 0.3)
+oldpar <- par(las=2)
+barplot(INDU_SCEs$En_number, width = 0.9, space = 0.35, 
+        names.arg = names, border = 1,
+        xlab= "", ylab = "En_number",
+        xlim = c(1, (nrow(INDU_En_number)+5)), ylim = c(-1.5, 1.5),
+        cex.lab=1, cex.axis=0.8, cex.names = 0.8, col.axis="black")
+title(main ="Industry-Cement En_number", font.main= 1.5)
+abline(h=0,col=1, lty=1, lwd=1)
+abline(h=1,col=3, lty=1, lwd=2)
+abline(h=0.5,col=4, lty=1, lwd=2)
+abline(h=-1,col=3, lty=1, lwd=2)
+abline(h=-0.5,col=4, lty=1, lwd=2)
+par(oldpar)
+
+dev.off()
+
